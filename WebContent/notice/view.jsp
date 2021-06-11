@@ -1,5 +1,46 @@
+<%@page import="kr.or.kpc.dto.NoticeDto"%>
+<%@page import="kr.or.kpc.dao.NoticeDao"%>
 <%@ page pageEncoding="utf-8" %>
 <%@ include file="../inc/header.jsp" %>
+<%
+	String tempPage = request.getParameter("page");
+	String tempNum = request.getParameter("num");
+	int cPage = 0;
+	int num = 0;
+	if(tempPage == null || tempPage.length()==0){
+		cPage = 1;
+	}
+	try{
+		cPage = Integer.parseInt(tempPage);	
+	} catch(NumberFormatException e){
+		cPage = 1;
+	}
+	
+	if(tempNum == null || tempNum.length()==0) {
+		num = -1;
+	}
+	
+	try{
+		num = Integer.parseInt(tempNum);
+	} catch(NumberFormatException e){
+		num = -1;
+	}
+	
+	NoticeDao dao = NoticeDao.getInstance();
+	NoticeDto dto = dao.select(num);
+	
+	if(dto == null){
+		num = -1;
+	}
+	if(num == -1){
+			
+%>
+	<script>
+		alert('해당글이 존재하지 않습니다.');
+		location.href="list.jsp?page=<%=cPage%>";
+	</script>
+
+<%} %>
  	<!-- breadcrumb start -->
  	<nav aria-label="breadcrumb">
 	  <ol class="breadcrumb">
@@ -17,13 +58,16 @@
 				<%-- form start --%>
 				<form name="noticeForm" method="post" action="saveDb.jsp">
 					<div class="form-group">
-				  		작성자 : 최우빈
+				  		작성자 : <%=dto.getWriter() %>
 					</div>
 					<div class="form-group">
-						제목 : 제목1
+				    	날짜 : <%=dto.getRegdate() %>	  
+				    </div>
+					<div class="form-group">
+						제목 : <%=dto.getTitle() %>
 					</div>
 					<div class="form-group">
-				    	내용 : 내용내용내용내용내용내용		  
+				    	내용 : <%=dto.getContent() %>	  
 				    </div>
 				</form>
 				<%-- form end --%>

@@ -32,6 +32,7 @@
 	if(dto == null){
 		num = -1;
 	}
+	
 	if(num == -1){
 			
 %>
@@ -58,23 +59,23 @@
 				<%-- form start --%>
 				<form name="noticeForm" method="post" action="saveDb.jsp">
 					<div class="form-group">
-				  		작성자 : <%=dto.getWriter() %>
+				  		<strong>작성자</strong> : <p><%=dto.getWriter() %></p>
 					</div>
 					<div class="form-group">
-				    	날짜 : <%=dto.getRegdate() %>	  
+				    	<strong>날짜</strong> : <p><%=dto.getRegdate() %></p>	  
 				    </div>
 					<div class="form-group">
-						제목 : <%=dto.getTitle() %>
+						<strong>제목</strong> : <p><%=dto.getTitle() %></p>
 					</div>
 					<div class="form-group">
-				    	내용 : <%=dto.getContent() %>	  
+				    	<strong>내용</strong> : <p><%=dto.getContent().replaceAll("\n","<br>") %></p>	  
 				    </div>
 				</form>
 				<%-- form end --%>
 				<div class="text-right">
-					<a class="btn btn-light" href="list.jsp" role="button">리스트</a>
-					<a class="btn btn-primary" href="modify.jsp" role="button">수정</a>
-					<a class="btn btn-danger" id="deleteNotice" role="button">삭제</a>
+					<a class="btn btn-light" href="list.jsp?page=<%=cPage %>" role="button">리스트</a>
+					<a class="btn btn-primary" href="modify.jsp?num=<%=num %>&page=<%=cPage %>" role="button">수정</a>
+					<a class="btn btn-danger" href="deleteDb.jsp?num=<%=num %>&page=<%=cPage %>" role="button">삭제</a>
 				</div>
 			</div>
 		</div>

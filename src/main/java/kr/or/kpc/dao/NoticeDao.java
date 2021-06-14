@@ -52,7 +52,7 @@ public class NoticeDao {
 		
 		return success;
 	}
-	public boolean upadte(NoticeDto dto) {
+	public boolean update(NoticeDto dto) {
 		boolean success = false;
 		Connection con = null;
 		PreparedStatement pstmt = null;

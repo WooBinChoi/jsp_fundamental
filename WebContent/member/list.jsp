@@ -30,6 +30,7 @@
 			dao.select(start, displayCount);
 	
 %>
+	<%=session.getId() %>
   	<!-- breadcrumb start -->
   	<nav aria-label="breadcrumb">
 	  <ol class="breadcrumb">

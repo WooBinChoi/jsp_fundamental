@@ -1,3 +1,4 @@
+<%@page import="kr.or.kpc.dto.CustomerDto"%>
 <%@ page pageEncoding="utf-8" %>
 <!doctype html>
 <html lang="en">
@@ -39,10 +40,39 @@
 	        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
 	      </li>
 	    </ul>
-	    <form class="form-inline my-2 my-lg-0">
-	      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-	      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-	    </form>
+	    <span class="navbar-text">
+	    	<%
+	    		CustomerDto customerDto = (CustomerDto)session.getAttribute("login");
+	    		if(customerDto == null){
+	    	%>
+	    
+	    	<a href="/member/login.jsp">로그인</a>
+	    	<a href="/member/join.jsp">회원가입</a>
+	    	<%}else{ %>
+	    	
+	    	<%=customerDto.getName() %>님 안녕하세요...[<span id = "sessionTime"></span>]
+	    	<a href="/member/logout.jsp">로그아웃</a>
+	    	<a href="/member/mypage.jsp">My Page</a>
+	    	<%} %>
+	    </span>
 	  </div>
 	</nav>
  	<!-- navbar end -->
+ 	<script>
+ 		let time = <%=session.getMaxInactiveInterval()%>;
+ 		let min = "";
+ 		let sec = "";
+ 		const x = setInterval(function(){
+ 			min = parseInt(time/60);
+ 			sec = time%60;
+ 			$("#sessionTime").html(min+"분 "+sec+"초");
+ 			time--;
+ 			if(time < 0){
+ 				clearInterval(x);//실행 끝
+ 				location.href="/member/login.jsp";
+ 			}
+ 		}, 1000);
+ 	</script>
+ 	
+ 	
+ 	
